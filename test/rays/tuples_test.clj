@@ -101,4 +101,15 @@
 
   (testing "computing the magnitude of vector -1 -2 -3"
     (let [v (sut/->vect -1 -2 -3)]
-      (is (sut/eq-floats? (Math/sqrt 14) (sut/magnitude v))))))
+      (is (sut/eq-floats? (Math/sqrt 14) (sut/magnitude v)))))
+
+  (testing "normalizing vector 4 0 0 gives 1 0 0"
+    (let [v (sut/->vect 4 0 0)]
+      (is (sut/equal? (sut/->vect 1 0 0)
+                      (sut/normalize v)))))
+
+  (testing "normalizing vector 1 2 3"
+    (let [v (sut/->vect 1 2 3)]
+      (is (sut/eq-floats? 1
+                          (sut/magnitude
+                           (sut/normalize v)))))))

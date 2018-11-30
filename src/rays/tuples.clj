@@ -57,3 +57,6 @@
       (* (:y v) (:y v))
       (* (:z v) (:z v))
       (* (:w v) (:w v)))))
+
+(defn normalize [v]
+  (divide v (magnitude v)))
