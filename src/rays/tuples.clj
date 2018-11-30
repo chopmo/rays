@@ -60,3 +60,9 @@
 
 (defn normalize [t]
   (divide t (magnitude t)))
+
+(defn dot [t1 t2]
+  (+ (* (:x t1) (:x t2))
+     (* (:y t1) (:y t2))
+     (* (:z t1) (:z t2))
+     (* (:w t1) (:w t2))))

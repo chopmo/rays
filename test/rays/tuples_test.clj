@@ -112,4 +112,9 @@
     (let [v (sut/->vect 1 2 3)]
       (is (sut/eq-floats? 1
                           (sut/magnitude
-                           (sut/normalize v)))))))
+                           (sut/normalize v))))))
+
+  (testing "the dot product of two tuples"
+    (let [a (sut/->vect 1 2 3)
+          b (sut/->vect 2 3 4)]
+      (is (sut/eq-floats? 20 (sut/dot a b))))))
