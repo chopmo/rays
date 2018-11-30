@@ -12,7 +12,7 @@
 (defn ->point [x y z]
   (->tuple x y z 1))
 
-(defn ->vector [x y z]
+(defn ->vect [x y z]
   (->tuple x y z 0))
 
 (defn add [t1 t2]
@@ -42,7 +42,7 @@
 (defn point? [t]
   (eq-floats? 1.0 (:w t)))
 
-(defn vector? [t]
+(defn vect? [t]
   (eq-floats? 0.0 (:w t)))
 
 (defn equal? [t1 t2]
