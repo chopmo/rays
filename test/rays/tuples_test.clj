@@ -1,6 +1,7 @@
 (ns rays.tuples-test
   (:require [clojure.test :refer [testing deftest is]]
-            [rays.tuples :as sut])
+            [rays.tuples :as sut]
+            [rays.common :as c])
   (:import [java.lang Math]))
 
 (deftest test-tuples
@@ -85,23 +86,23 @@
 
   (testing "computing the magnitude of vector 1 0 0"
     (let [v (sut/->vect 1 0 0)]
-      (is (sut/eq-floats? 1 (sut/magnitude v)))))
+      (is (c/eq-floats? 1 (sut/magnitude v)))))
 
   (testing "computing the magnitude of vector 0 1 0"
     (let [v (sut/->vect 0 1 0)]
-      (is (sut/eq-floats? 1 (sut/magnitude v)))))
+      (is (c/eq-floats? 1 (sut/magnitude v)))))
 
   (testing "computing the magnitude of vector 0 0 1"
     (let [v (sut/->vect 0 0 1)]
-      (is (sut/eq-floats? 1 (sut/magnitude v)))))
+      (is (c/eq-floats? 1 (sut/magnitude v)))))
 
   (testing "computing the magnitude of vector 1 2 3"
     (let [v (sut/->vect 1 2 3)]
-      (is (sut/eq-floats? (Math/sqrt 14) (sut/magnitude v)))))
+      (is (c/eq-floats? (Math/sqrt 14) (sut/magnitude v)))))
 
   (testing "computing the magnitude of vector -1 -2 -3"
     (let [v (sut/->vect -1 -2 -3)]
-      (is (sut/eq-floats? (Math/sqrt 14) (sut/magnitude v)))))
+      (is (c/eq-floats? (Math/sqrt 14) (sut/magnitude v)))))
 
   (testing "normalizing vector 4 0 0 gives 1 0 0"
     (let [v (sut/->vect 4 0 0)]
@@ -110,14 +111,14 @@
 
   (testing "normalizing vector 1 2 3"
     (let [v (sut/->vect 1 2 3)]
-      (is (sut/eq-floats? 1
+      (is (c/eq-floats? 1
                           (sut/magnitude
                            (sut/normalize v))))))
 
   (testing "the dot product of two tuples"
     (let [a (sut/->vect 1 2 3)
           b (sut/->vect 2 3 4)]
-      (is (sut/eq-floats? 20 (sut/dot a b)))))
+      (is (c/eq-floats? 20 (sut/dot a b)))))
 
   (testing "the cross product of two vectors"
     (let [a (sut/->vect 1 2 3)
