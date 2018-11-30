@@ -1,6 +1,7 @@
 (ns rays.tuples-test
   (:require [clojure.test :refer [testing deftest is]]
-            [rays.tuples :as sut]))
+            [rays.tuples :as sut])
+  (:import [java.lang Math]))
 
 (deftest test-tuples
   (testing "A tuple with w=1.0 is a point"
@@ -79,4 +80,25 @@
   (testing "dividing a tuple by a scalar"
     (let [a (sut/->tuple 1 -2 3 -4)]
       (is (sut/equal? (sut/->tuple 0.5 -1 1.5 -2)
-                      (sut/divide a 2))))))
+                      (sut/divide a 2)))))
+
+
+  (testing "computing the magnitude of vector 1 0 0"
+    (let [v (sut/->vect 1 0 0)]
+      (is (sut/eq-floats? 1 (sut/magnitude v)))))
+
+  (testing "computing the magnitude of vector 0 1 0"
+    (let [v (sut/->vect 0 1 0)]
+      (is (sut/eq-floats? 1 (sut/magnitude v)))))
+
+  (testing "computing the magnitude of vector 0 0 1"
+    (let [v (sut/->vect 0 0 1)]
+      (is (sut/eq-floats? 1 (sut/magnitude v)))))
+
+  (testing "computing the magnitude of vector 1 2 3"
+    (let [v (sut/->vect 1 2 3)]
+      (is (sut/eq-floats? (Math/sqrt 14) (sut/magnitude v)))))
+
+  (testing "computing the magnitude of vector -1 -2 -3"
+    (let [v (sut/->vect -1 -2 -3)]
+      (is (sut/eq-floats? (Math/sqrt 14) (sut/magnitude v))))))

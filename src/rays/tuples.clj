@@ -1,9 +1,9 @@
 (ns rays.tuples
-  (:import [java.lang.Math]))
+  (:import [java.lang Math]))
 
 (def epsilon 0.00001)
 
-(defn- eq-floats? [a b]
+(defn eq-floats? [a b]
   (< (Math/abs (- a b)) epsilon))
 
 (defn ->tuple [x y z w]
@@ -50,3 +50,10 @@
        (eq-floats? (:y t1) (:y t2))
        (eq-floats? (:z t1) (:z t2))
        (eq-floats? (:w t1) (:w t2))))
+
+(defn magnitude [v]
+  (Math/sqrt
+   (+ (* (:x v) (:x v))
+      (* (:y v) (:y v))
+      (* (:z v) (:z v))
+      (* (:w v) (:w v)))))
