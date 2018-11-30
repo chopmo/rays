@@ -29,6 +29,9 @@
    :z (- (:z t1) (:z t2))
    :w (- (:w t1) (:w t2))})
 
+(defn negate [t]
+  (subtract (->tuple 0 0 0 0) t))
+
 (defn point? [t]
   (eq-floats? 1.0 (:w t)))
 

@@ -54,4 +54,15 @@
     (let [v1 (sut/->vector 3 2 1)
           v2 (sut/->vector 5 6 7)]
       (is (sut/equal? (sut/->vector -2 -4 -6)
-                      (sut/subtract v1 v2))))))
+                      (sut/subtract v1 v2)))))
+
+  (testing "subtracting a vector from the zero vector"
+    (let [zero (sut/->vector 0 0 0)
+          v (sut/->vector 1 -2 3)]
+      (is (sut/equal? (sut/->vector -1 2 -3)
+                      (sut/subtract zero v)))))
+
+  (testing "negating a tuple"
+    (let [a (sut/->tuple 1 -2 3 -4)]
+      (is (sut/equal? (sut/->tuple -1 2 -3 4)
+                      (sut/negate a))))))
