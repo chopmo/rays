@@ -75,4 +75,9 @@
   (testing "multiplying a tuple by a fraction"
     (let [a (sut/->tuple 1 -2 3 -4)]
       (is (sut/equal? (sut/->tuple 0.5, -1, 1.5, -2)
-                      (sut/multiply a 0.5))))))
+                      (sut/multiply a 0.5)))))
+
+  (testing "dividing a tuple by a scalar"
+    (let [a (sut/->tuple 1 -2 3 -4)]
+      (is (sut/equal? (sut/->tuple 0.5 -1 1.5 -2)
+                      (sut/divide a 2))))))

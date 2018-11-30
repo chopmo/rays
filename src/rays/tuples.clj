@@ -36,6 +36,9 @@
    :z (* (:z t) s)
    :w (* (:w t) s)})
 
+(defn divide [t s]
+  (multiply t (float (/ 1 s))))
+
 (defn point? [t]
   (eq-floats? 1.0 (:w t)))
 
