@@ -24,4 +24,15 @@
 
   (testing "->vector creates tuples with w=0"
     (is (= (sut/->tuple 4 -4 3 0)
-           (sut/->vector 4 -4 3)))))
+           (sut/->vector 4 -4 3))))
+
+  (testing "equal?"
+    (is (sut/equal? (sut/->tuple 1 2 3 0)
+                    (sut/->tuple 1 2 3 0)))
+    (is (not (sut/equal? (sut/->tuple 1 2 3 0)
+                         (sut/->tuple 1 2 2 0)))))
+
+  #_(testing "adding two tuples"
+    (let [a1 (->tuple 3 -2 5 1)
+          a2 (->tuple -2 3 1 0)]
+      (is (sut/equal)))))

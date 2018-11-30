@@ -20,3 +20,10 @@
 
 (defn vector? [t]
   (eq-floats? 0.0 (:w t)))
+
+;; TODO: This can be refactored
+(defn equal? [t1 t2]
+  (and (eq-floats? (:x t1) (:x t2))
+       (eq-floats? (:y t1) (:y t2))
+       (eq-floats? (:z t1) (:z t2))
+       (eq-floats? (:w t1) (:w t2))))
