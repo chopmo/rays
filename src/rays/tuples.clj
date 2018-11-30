@@ -15,14 +15,12 @@
 (defn ->vector [x y z]
   (->tuple x y z 0))
 
-;; TODO refactor
 (defn add [t1 t2]
   {:x (+ (:x t1) (:x t2))
    :y (+ (:y t1) (:y t2))
    :z (+ (:z t1) (:z t2))
    :w (+ (:w t1) (:w t2))})
 
-;; TODO refactor
 (defn subtract [t1 t2]
   {:x (- (:x t1) (:x t2))
    :y (- (:y t1) (:y t2))
@@ -44,7 +42,6 @@
 (defn vector? [t]
   (eq-floats? 0.0 (:w t)))
 
-;; TODO: This can be refactored
 (defn equal? [t1 t2]
   (and (eq-floats? (:x t1) (:x t2))
        (eq-floats? (:y t1) (:y t2))
