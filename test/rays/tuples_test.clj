@@ -38,8 +38,14 @@
       (is (sut/equal? (sut/->tuple 1 1 6 1)
                       (sut/add a1 a2)))))
 
-  (testing "subtracting tuples"
+  (testing "subtracting two points"
     (let [p1 (sut/->point 3 2 1)
           p2 (sut/->point 5 6 7)]
       (is (sut/equal? (sut/->vector -2 -4 -6)
-                      (sut/subtract p1 p2))))))
+                      (sut/subtract p1 p2)))))
+
+  (testing "subtracting a vector from a point"
+    (let [p (sut/->point 3 2 1)
+          v (sut/->vector 5 6 7)]
+      (is (sut/equal? (sut/->point -2 -4 -6)
+                      (sut/subtract p v))))))
