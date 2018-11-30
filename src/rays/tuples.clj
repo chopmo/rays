@@ -51,12 +51,12 @@
        (eq-floats? (:z t1) (:z t2))
        (eq-floats? (:w t1) (:w t2))))
 
-(defn magnitude [v]
+(defn magnitude [t]
   (Math/sqrt
-   (+ (* (:x v) (:x v))
-      (* (:y v) (:y v))
-      (* (:z v) (:z v))
-      (* (:w v) (:w v)))))
+   (+ (* (:x t) (:x t))
+      (* (:y t) (:y t))
+      (* (:z t) (:z t))
+      (* (:w t) (:w t)))))
 
-(defn normalize [v]
-  (divide v (magnitude v)))
+(defn normalize [t]
+  (divide t (magnitude t)))
