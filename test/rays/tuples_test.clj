@@ -48,4 +48,10 @@
     (let [p (sut/->point 3 2 1)
           v (sut/->vector 5 6 7)]
       (is (sut/equal? (sut/->point -2 -4 -6)
-                      (sut/subtract p v))))))
+                      (sut/subtract p v)))))
+
+  (testing "subtracting two vectors"
+    (let [v1 (sut/->vector 3 2 1)
+          v2 (sut/->vector 5 6 7)]
+      (is (sut/equal? (sut/->vector -2 -4 -6)
+                      (sut/subtract v1 v2))))))
