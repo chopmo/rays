@@ -65,4 +65,14 @@
   (testing "negating a tuple"
     (let [a (sut/->tuple 1 -2 3 -4)]
       (is (sut/equal? (sut/->tuple -1 2 -3 4)
-                      (sut/negate a))))))
+                      (sut/negate a)))))
+
+  (testing "multiplying a tuple by a scalar"
+    (let [a (sut/->tuple 1 -2 3 -4)]
+      (is (sut/equal? (sut/->tuple 3.5 -7 10.5 -14)
+                      (sut/multiply a 3.5)))))
+
+  (testing "multiplying a tuple by a fraction"
+    (let [a (sut/->tuple 1 -2 3 -4)]
+      (is (sut/equal? (sut/->tuple 0.5, -1, 1.5, -2)
+                      (sut/multiply a 0.5))))))

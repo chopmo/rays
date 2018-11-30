@@ -32,6 +32,12 @@
 (defn negate [t]
   (subtract (->tuple 0 0 0 0) t))
 
+(defn multiply [t s]
+  {:x (* (:x t) s)
+   :y (* (:y t) s)
+   :z (* (:z t) s)
+   :w (* (:w t) s)})
+
 (defn point? [t]
   (eq-floats? 1.0 (:w t)))
 
