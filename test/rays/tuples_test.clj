@@ -117,4 +117,12 @@
   (testing "the dot product of two tuples"
     (let [a (sut/->vect 1 2 3)
           b (sut/->vect 2 3 4)]
-      (is (sut/eq-floats? 20 (sut/dot a b))))))
+      (is (sut/eq-floats? 20 (sut/dot a b)))))
+
+  (testing "the cross product of two vectors"
+    (let [a (sut/->vect 1 2 3)
+          b (sut/->vect 2 3 4)]
+      (is (sut/equal? (sut/->vect -1 2 -1)
+                      (sut/cross a b)))
+      (is (sut/equal? (sut/->vect 1 -2 1)
+                      (sut/cross b a))))))
