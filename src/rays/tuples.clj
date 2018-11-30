@@ -22,6 +22,13 @@
    :z (+ (:z t1) (:z t2))
    :w (+ (:w t1) (:w t2))})
 
+;; TODO refactor
+(defn subtract [t1 t2]
+  {:x (- (:x t1) (:x t2))
+   :y (- (:y t1) (:y t2))
+   :z (- (:z t1) (:z t2))
+   :w (- (:w t1) (:w t2))})
+
 (defn point? [t]
   (eq-floats? 1.0 (:w t)))
 
