@@ -6,6 +6,8 @@
    :green g
    :blue b})
 
+(def black (->color 0 0 0))
+
 (defn equal? [c1 c2]
   (and (c/eq-floats? (:red c1) (:red c2))
        (c/eq-floats? (:green c1) (:green c2))
