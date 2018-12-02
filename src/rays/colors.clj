@@ -27,3 +27,7 @@
   (->color (* (:red c1) (:red c2))
            (* (:green c1) (:green c2))
            (* (:blue c1) (:blue c2))))
+
+(defn red [c] (:red c))
+(defn green [c] (:green c))
+(defn blue [c] (:blue c))
