@@ -25,31 +25,23 @@
        (str/join " ")))
 
 (defn wrap [len s]
-  (letfn [(helper [s idx ss]
-            (cond
-              ;; Couldn't split the string, so just append it
-              (zero? idx)
-              (let [[w & ws] (str/split s #" ")]
-                (helper (str/join " " ws)
-                        len
-                        (conj ss w)))
-
-              (empty? s)
-              ss
-
-              (<= (count s) len)
-              (conj ss s)
-
-              (= \space (get s idx))
-              (helper (subs s (inc idx))
-                      len
-                      (conj ss (subs s 0 idx)))
-
-              :default
-              (helper s
+  (loop [s   s
+         idx len
+         ss  []]
+    (cond
+      (empty? s) ss
+      (<= (count s) len) (conj ss s)
+      (= \space (get s idx)) (recur (subs s (inc idx))
+                                    len
+                                    (conj ss (subs s 0 idx)))
+      ;; Couldn't split the string, so just append it
+      (zero? idx) (let [[w & ws] (str/split s #" ")]
+                    (recur (str/join " " ws)
+                           len
+                           (conj ss w)))
+      :default (recur s
                       (dec idx)
-                      ss)))]
-    (helper s len [])))
+                      ss))))
 
 (defn canvas-to-ppm [c]
   (let [header     ["P3"
