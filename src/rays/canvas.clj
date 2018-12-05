@@ -1,10 +1,11 @@
 (ns rays.canvas
   (:require [rays.colors :as col]))
 
-(defn ->canvas [w h]
+(defn ->canvas [w h & [color]]
   (into []
         (repeat h
-                (into [] (repeat w col/black)))))
+                (into [] (repeat w (or color
+                                       col/black))))))
 
 (defn width [c]
   (count (first c)))
