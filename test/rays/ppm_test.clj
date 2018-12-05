@@ -47,3 +47,10 @@
               "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
               "255 204 153 255 204 153 255 204 153 255 204 153"]
              lines)))))
+
+(deftest test-wrap
+  (is (= ["asdf qwer owiej foiw"
+          "jfeoiw jefpoiwje"
+          "fpoiwje fpoiwj fepoiw"
+          "jfepoiwje fpwifej"]
+         (sut/wrap 20 "asdf qwer owiej foiw jfeoiw jefpoiwje fpoiwje fpoiwj fepoiw jfepoiwje fpwifej"))))
