@@ -56,4 +56,9 @@
           "fpoiwje fpoiwj"
           "fepoiw jfepoiwje"
           "fpwifej"]
-         (sut/wrap 20 "asdf qwer owiej foiw jfeoiw jefpoiwje fpoiwje fpoiwj fepoiw jfepoiwje fpwifej"))))
+         (sut/wrap 20 "asdf qwer owiej foiw jfeoiw jefpoiwje fpoiwje fpoiwj fepoiw jfepoiwje fpwifej")))
+  (testing "it doesn't crash when a chunk is too big"
+    (is (= ["1234"
+            "abcde"
+            "1234"]
+           (sut/wrap 4 "1234 abcde 1234")))))

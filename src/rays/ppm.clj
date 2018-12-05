@@ -31,16 +31,16 @@
               ss
 
               (<= (count s) len)
-              (concat ss [s])
+              (conj ss s)
 
               (= \space (get s idx))
-              (wrap* (subs s (inc idx))
+              (helper (subs s (inc idx))
                      len
                      len
-                     (concat ss [(subs s 0 idx)]))
+                     (conj ss (subs s 0 idx)))
 
               :default
-              (wrap* s len (dec idx) ss)))]
+              (helper s len (dec idx) ss)))]
     (helper s len len [])))
 
 (defn canvas-to-ppm [c]
