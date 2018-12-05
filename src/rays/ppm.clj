@@ -25,17 +25,23 @@
        (str/join " ")))
 
 (defn wrap [len s]
-  (letfn [(split-at-blank [i]
-            (let [c (get s i)]
-              (if (or (nil? c)
-                      (= \space c))
-                (vector (apply str (take i s))
-                        (apply str (drop (inc i) s)))
-                (split-at-blank (dec i)))))]
-    (let [[head rest] (split-at-blank (inc len))]
-      (if (empty? rest)
-        [head]
-        (cons head (wrap (inc len) rest))))))
+  (letfn [(helper [s len idx ss]
+            (cond
+              (empty? s)
+              ss
+
+              (<= (count s) len)
+              (concat ss [s])
+
+              (= \space (get s idx))
+              (wrap* (subs s (inc idx))
+                     len
+                     len
+                     (concat ss [(subs s 0 idx)]))
+
+              :default
+              (wrap* s len (dec idx) ss)))]
+    (helper s len len [])))
 
 (defn canvas-to-ppm [c]
   (let [header     ["P3"

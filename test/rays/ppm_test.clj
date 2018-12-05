@@ -42,15 +42,18 @@
                      (drop 3)
                      (take 4))]
 
-      (is (= ["255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
-              "255 204 153 255 204 153 255 204 153 255 204 153"
-              "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204 153"
-              "255 204 153 255 204 153 255 204 153 255 204 153"]
+      (is (= ["255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204"
+              "153 255 204 153 255 204 153 255 204 153 255 204 153"
+              "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204"
+              "153 255 204 153 255 204 153 255 204 153 255 204 153"]
              lines)))))
 
 (deftest test-wrap
+  (is (= ["asdf"]
+         (sut/wrap 4 "asdf")))
   (is (= ["asdf qwer owiej foiw"
           "jfeoiw jefpoiwje"
-          "fpoiwje fpoiwj fepoiw"
-          "jfepoiwje fpwifej"]
+          "fpoiwje fpoiwj"
+          "fepoiw jfepoiwje"
+          "fpwifej"]
          (sut/wrap 20 "asdf qwer owiej foiw jfeoiw jefpoiwje fpoiwje fpoiwj fepoiw jfepoiwje fpwifej"))))
