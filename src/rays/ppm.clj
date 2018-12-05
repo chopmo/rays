@@ -27,6 +27,14 @@
 (defn wrap [len s]
   (letfn [(helper [s len idx ss]
             (cond
+              ;; Couldn't split the string, so just append it
+              (zero? idx)
+              (let [[w & ws] (str/split s #" ")]
+                (helper (str/join " " ws)
+                        len
+                        len
+                        (conj ss w)))
+
               (empty? s)
               ss
 
@@ -35,9 +43,9 @@
 
               (= \space (get s idx))
               (helper (subs s (inc idx))
-                     len
-                     len
-                     (conj ss (subs s 0 idx)))
+                      len
+                      len
+                      (conj ss (subs s 0 idx)))
 
               :default
               (helper s len (dec idx) ss)))]
