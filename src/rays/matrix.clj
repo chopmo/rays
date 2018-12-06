@@ -1,4 +1,5 @@
-(ns rays.matrix)
+(ns rays.matrix
+  (:require [rays.common :as cm]))
 
 (defn ->mat2 [& xs]
   (vec (map vec (partition 2 xs))))
@@ -12,3 +13,7 @@
 
 (defn at [m r c]
   (get-in m [r c]))
+
+(defn eq [m1 m2]
+  (every? (fn [[a b]] (cm/eq-floats? a b))
+          (map vector (flatten m1) (flatten m2))))

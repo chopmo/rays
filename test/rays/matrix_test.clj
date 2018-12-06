@@ -41,4 +41,26 @@
                  [1 1 -2]
                  [2 1 1]]]
 
-      (test-cases m cases))))
+      (test-cases m cases)))
+
+  (testing "matrix equality with identical matrices"
+    (let [m1 (sut/->mat4 1 2 3 4
+                         5 6 7 8
+                         9 8 7 6
+                         5 4 3 2)
+          m2 (sut/->mat4 1 2 3 4
+                         5 6 7 8
+                         9 8 7 6
+                         5 4 3 2)]
+      (is (sut/eq m1 m2))))
+
+  (testing "matrix equality with different matrices"
+    (let [m1 (sut/->mat4 1 2 3 4
+                         5 6 7 8
+                         9 8 7 6
+                         5 4 3 2)
+          m2 (sut/->mat4 2 3 4 5
+                         6 7 8 9
+                         8 7 6 5
+                         4 3 2 1)]
+      (is (not (sut/eq m1 m2))))))
