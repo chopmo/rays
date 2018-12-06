@@ -3,6 +3,11 @@
             [rays.common :as cm]
             [clojure.test :refer [deftest testing is]]))
 
+(defn test-cases [m cases]
+  (doseq [[r c expected :as case] cases]
+    (is (cm/eq-floats? expected (sut/at m r c))
+        (str case))))
+
 (deftest test-matrix
   (testing "constructing and inspecting a 4x4 matrix"
     (let [m     (sut/->mat4 1    2    3    4
@@ -16,6 +21,24 @@
                  [3 0 13.5]
                  [3 2 15.5]]]
 
-      (doseq [[r c expected :as case] cases]
-        (is (cm/eq-floats? expected (sut/at m r c))
-            (str case))))))
+      (test-cases m cases)))
+
+  (testing "a 2x2 matrix ought to be representable"
+    (let [m     (sut/->mat2 -3 5
+                            1 -2)
+          cases [[0 0 -3]
+                 [0 1 5]
+                 [1 0 1]
+                 [1 1 -2]]]
+
+      (test-cases m cases)))
+
+  (testing "a 3x3 matrix ought to be representable"
+    (let [m     (sut/->mat3 -3 5 0
+                            1 -2 -7
+                            0 1 1)
+          cases [[0 0 -3]
+                 [1 1 -2]
+                 [2 1 1]]]
+
+      (test-cases m cases))))
