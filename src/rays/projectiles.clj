@@ -1,5 +1,8 @@
 (ns rays.projectiles
-  (:require [rays.tuples :as t]))
+  (:require [rays.tuples :as t]
+            [rays.canvas :as c]
+            [rays.colors :as col]
+            [rays.ppm :as ppm]))
 
 (defn ->projectile [position velocity]
   {:position position
@@ -33,3 +36,27 @@
          (filter (fn [[_ proj]] (<= (-> proj :position :y) 0)))
          ffirst))
   )
+
+(comment
+  (let [env    (->environment (t/->vect 0 -0.1 0)
+                              (t/->vect -0.01 0 0))
+        height 200
+        width  300]
+
+    (->> (loop [p
+               (->projectile (t/->point 0 1 0)
+                             (-> (t/->vect 1 2 0)
+                                 t/normalize
+                                 (t/multiply 6)))
+
+               canvas (c/->canvas width height)]
+          (if (neg? (-> p :position :y))
+            canvas
+            (recur (tick env p)
+                   (c/write-pixel canvas
+                                  (-> p :position :x int)
+                                  (- height (-> p :position :y int))
+                                  (col/->color 1 1 1)))))
+         ppm/canvas-to-ppm
+         (spit "foo.ppm")))
+)
