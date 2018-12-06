@@ -14,7 +14,10 @@
   (count c))
 
 (defn write-pixel [c x y col]
-  (assoc-in c [y x] col))
+  (if (and (<= 0 x (dec (width c)))
+           (<= 0 y (dec (height c))))
+    (assoc-in c [y x] col)
+    c))
 
 (defn pixel-at [c x y]
   (get-in c [y x]))
