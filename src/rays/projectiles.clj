@@ -40,14 +40,13 @@
 (comment
   (let [env    (->environment (t/->vect 0 -0.1 0)
                               (t/->vect -0.01 0 0))
-        height 200
-        width  300]
-
+        height 400
+        width  600]
     (->> (loop [p
                (->projectile (t/->point 0 1 0)
                              (-> (t/->vect 1 2 0)
                                  t/normalize
-                                 (t/multiply 6)))
+                                 (t/multiply 8)))
 
                canvas (c/->canvas width height)]
           (if (neg? (-> p :position :y))
@@ -58,5 +57,6 @@
                                   (- height (-> p :position :y int))
                                   (col/->color 1 1 1)))))
          ppm/canvas-to-ppm
-         (spit "foo.ppm")))
+         (spit "foo.ppm")
+         ))
 )
