@@ -44,11 +44,12 @@
                       ss))))
 
 (defn canvas-to-ppm [c]
-  (let [header     ["P3"
-                    (str (c/width c) " " (c/height c))
-                    "255"]
-        pixel-rows (->> c
-                        (map row)
-                        (mapcat (partial wrap 70)))]
-    (str/join "\n"
-              (concat header pixel-rows))) )
+  (let [header-rows ["P3"
+                     (str (c/width c) " " (c/height c))
+                     "255"]
+        pixel-rows  (->> c
+                         (map row)
+                         (mapcat (partial wrap 70)))]
+    (->> (concat header-rows pixel-rows)
+         (map #(str % "\n"))
+         str/join)))

@@ -46,7 +46,12 @@
               "153 255 204 153 255 204 153 255 204 153 255 204 153"
               "255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204"
               "153 255 204 153 255 204 153 255 204 153 255 204 153"]
-             lines)))))
+             lines))))
+
+  (testing "PPM files are terminated by a newline"
+    (let [c (c/->canvas 5 3)
+          ppm (sut/canvas-to-ppm c)]
+      (is (= \newline (last ppm))))))
 
 (deftest test-wrap
   (is (= ["asdf"]
