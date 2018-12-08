@@ -1,7 +1,8 @@
 (ns rays.matrix-test
   (:require [rays.matrix :as sut]
             [rays.common :as cm]
-            [clojure.test :refer [deftest testing is]]))
+            [clojure.test :refer [deftest testing is]]
+            [rays.tuples :as t]))
 
 (defn test-cases [m cases]
   (doseq [[r c expected :as case] cases]
@@ -78,4 +79,13 @@
                               44 54 114 108
                               40 58 110 102
                               16 26 46 42)
-                  (sut/mul4 a b))))))
+                  (sut/mul4 a b)))))
+
+  (testing "multiplying a matrix with a tuple"
+    (let [a (sut/->mat4 1 2 3 4
+                        2 4 4 2
+                        8 6 4 1
+                        0 0 0 1)
+          b (t/->tuple 1 2 3 1)]
+      (is (t/equal? (t/->tuple 18 24 33 1)
+                    (sut/mul-tuple a b))))))
