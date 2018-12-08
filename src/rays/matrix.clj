@@ -11,6 +11,12 @@
 (defn ->mat4 [& xs]
   (vec (map vec (partition 4 xs))))
 
+(def identity
+  (->mat4 1 0 0 0
+          0 1 0 0
+          0 0 1 0
+          0 0 0 1))
+
 (defn at [m r c]
   (get-in m [r c]))
 

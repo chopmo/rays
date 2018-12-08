@@ -88,4 +88,15 @@
                         0 0 0 1)
           b (t/->tuple 1 2 3 1)]
       (is (t/equal? (t/->tuple 18 24 33 1)
-                    (sut/mul-tuple a b))))))
+                    (sut/mul-tuple a b)))))
+
+  (testing "multiplying a matrix by the identity matrix"
+    (let [a (sut/->mat4 0  1  2  4
+                        1  2  4  8
+                        2  4  8  16
+                        4  8  16 32)]
+      (is (sut/eq a (sut/mul4 a sut/identity)))))
+
+  (testing "multiplying the identity matrix by a tuple"
+    (let [a (t/->tuple 1 2 3 4)]
+      (is (t/equal? a (sut/mul-tuple sut/identity a))))))
