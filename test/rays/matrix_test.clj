@@ -95,8 +95,19 @@
                         1  2  4  8
                         2  4  8  16
                         4  8  16 32)]
-      (is (sut/eq a (sut/mul4 a sut/identity)))))
+      (is (sut/eq a (sut/mul4 a sut/ident)))))
 
   (testing "multiplying the identity matrix by a tuple"
     (let [a (t/->tuple 1 2 3 4)]
-      (is (t/equal? a (sut/mul-tuple sut/identity a))))))
+      (is (t/equal? a (sut/mul-tuple sut/ident a)))))
+
+  (testing "transposing a matrix"
+    (let [a (sut/->mat4 0 9 3 0
+                        9 8 0 8
+                        1 8 5 3
+                        0 0 5 8)]
+      (is (sut/eq (sut/->mat4 0 9 1 0
+                              9 8 8 0
+                              3 0 5 5
+                              0 8 3 8)
+                  (sut/transpose a))))))

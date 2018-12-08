@@ -11,7 +11,7 @@
 (defn ->mat4 [& xs]
   (vec (map vec (partition 4 xs))))
 
-(def identity
+(def ident
   (->mat4 1 0 0 0
           0 1 0 0
           0 0 1 0
@@ -40,3 +40,6 @@
               (* (at a r 1) (:y t))
               (* (at a r 2) (:z t))
               (* (at a r 3) (:w t))))))
+
+(defn transpose [m]
+  (apply map vector m))
