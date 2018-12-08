@@ -23,15 +23,14 @@
   (apply ->mat4
          (for [r (range 4)
                c (range 4)]
-           (+ (* (at a r 0) (at b 0 c))
-              (* (at a r 1) (at b 1 c))
-              (* (at a r 2) (at b 2 c))
-              (* (at a r 3) (at b 3 c))))))
+           (apply +
+                  (for [i (range 4)]
+                    (* (at a r i) (at b i c)))))))
 
 (defn mul-tuple [a t]
   (apply t/->tuple
-         (for [i (range 4)]
-           (+ (* (at a i 0) (:x t))
-              (* (at a i 1) (:y t))
-              (* (at a i 2) (:z t))
-              (* (at a i 3) (:w t))))))
+         (for [r (range 4)]
+           (+ (* (at a r 0) (:x t))
+              (* (at a r 1) (:y t))
+              (* (at a r 2) (:z t))
+              (* (at a r 3) (:w t))))))
