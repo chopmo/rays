@@ -47,8 +47,13 @@
   (apply map vector m))
 
 (defn determinant [m]
-  (- (* (at m 0 0) (at m 1 1))
-     (* (at m 0 1) (at m 1 0))))
+  (let [size (count m)]
+    (if (> size 2)
+      (let [r         (first m)
+            cofactors (map (fn [i] (cofactor m 0 i)) (range size))]
+        (reduce + (map * r cofactors)))
+      (- (* (at m 0 0) (at m 1 1))
+         (* (at m 0 1) (at m 1 0))))))
 
 
 (defn submatrix [m r c]

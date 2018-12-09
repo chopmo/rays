@@ -150,4 +150,24 @@
       (is (cm/eq-floats? -12 (sut/minor a 0 0)))
       (is (cm/eq-floats? -12 (sut/cofactor a 0 0)))
       (is (cm/eq-floats? 25 (sut/minor a 1 0)))
-      (is (cm/eq-floats? -25 (sut/cofactor a 1 0))))))
+      (is (cm/eq-floats? -25 (sut/cofactor a 1 0)))))
+
+  (testing "calculating the determinant of a 3x3 matrix"
+    (let [a (sut/->mat3 1 2 6
+                        -5 8 -4
+                        2 6 4)]
+      (is (cm/eq-floats? 56 (sut/cofactor a 0 0)))
+      (is (cm/eq-floats? 12 (sut/cofactor a 0 1)))
+      (is (cm/eq-floats? -46 (sut/cofactor a 0 2)))
+      (is (cm/eq-floats? -196 (sut/determinant a)))))
+
+  (testing "calculating the determinant of a 4x4 matrix"
+    (let [a (sut/->mat4 -2 -8 3 5
+                        -3 1 7 3
+                        1 2 -9 6
+                        -6 7 7 -9)]
+      (is (cm/eq-floats? 690 (sut/cofactor a 0 0)))
+      (is (cm/eq-floats? 447 (sut/cofactor a 0 1)))
+      (is (cm/eq-floats? 210 (sut/cofactor a 0 2)))
+      (is (cm/eq-floats? 51 (sut/cofactor a 0 3)))
+      (is (cm/eq-floats? -4071 (sut/determinant a))))))
