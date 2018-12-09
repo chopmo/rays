@@ -58,3 +58,9 @@
 
 (defn minor [m r c]
   (determinant (submatrix m r c)))
+
+(defn cofactor [m r c]
+  (let [minor (minor m r c)]
+    (if (odd? (+ r c))
+      (- minor)
+      minor)))

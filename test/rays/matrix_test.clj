@@ -141,4 +141,13 @@
                         6 -1 5)
           b (sut/submatrix a 1 0)]
       (is (cm/eq-floats? 25 (sut/determinant b)))
-      (is (cm/eq-floats? 25 (sut/minor a 1 0))))))
+      (is (cm/eq-floats? 25 (sut/minor a 1 0)))))
+
+  (testing "calculating a cofactor of a 3x3 matrix"
+    (let [a (sut/->mat3 3 5 0
+                        2 -1 -7
+                        6 -1 5)]
+      (is (cm/eq-floats? -12 (sut/minor a 0 0)))
+      (is (cm/eq-floats? -12 (sut/cofactor a 0 0)))
+      (is (cm/eq-floats? 25 (sut/minor a 1 0)))
+      (is (cm/eq-floats? -25 (sut/cofactor a 1 0))))))
