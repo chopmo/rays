@@ -133,4 +133,12 @@
       (is (sut/eq (sut/->mat3 -6 1 6
                               -8 8 6
                               -7 -1 1)
-                  (sut/submatrix a 2 1))))))
+                  (sut/submatrix a 2 1)))))
+
+  (testing "calculating a minor of a 3x3 matrix"
+    (let [a (sut/->mat3 3 5 0
+                        2 -1 -7
+                        6 -1 5)
+          b (sut/submatrix a 1 0)]
+      (is (cm/eq-floats? 25 (sut/determinant b)))
+      (is (cm/eq-floats? 25 (sut/minor a 1 0))))))

@@ -53,4 +53,8 @@
 
 (defn submatrix [m r c]
   (->> (vec (concat (subvec m 0 r) (subvec m (inc r))))
-       (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))))))
+       (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))))
+       vec))
+
+(defn minor [m r c]
+  (determinant (submatrix m r c)))
