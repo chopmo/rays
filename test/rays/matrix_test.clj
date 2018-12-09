@@ -123,4 +123,14 @@
                         0 6 -3)]
       (is (sut/eq (sut/->mat2 -3 2
                               0 6)
-                  (sut/submatrix a 0 2))))))
+                  (sut/submatrix a 0 2)))))
+
+  (testing "a submatrix of a 4x4 matrix is a 3x3 matrix"
+    (let [a (sut/->mat4 -6 1 1 6
+                        -8 5 8 6
+                        -1 0 8 2
+                        -7 1 -1 1)]
+      (is (sut/eq (sut/->mat3 -6 1 6
+                              -8 8 6
+                              -7 -1 1)
+                  (sut/submatrix a 2 1))))))
