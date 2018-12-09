@@ -110,4 +110,9 @@
                               9 8 8 0
                               3 0 5 5
                               0 8 3 8)
-                  (sut/transpose a))))))
+                  (sut/transpose a)))))
+
+  (testing "calculating the determinant of a 2x2 matrix"
+    (let [a (sut/->mat2 1 5 -3 2)]
+      (is (cm/eq-floats? 17
+                         (sut/determinant a))))))

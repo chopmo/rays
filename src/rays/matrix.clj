@@ -43,3 +43,7 @@
 
 (defn transpose [m]
   (apply map vector m))
+
+(defn determinant [m]
+  (- (* (at m 0 0) (at m 1 1))
+     (* (at m 0 1) (at m 1 0))))
