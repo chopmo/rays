@@ -170,4 +170,20 @@
       (is (cm/eq-floats? 447 (sut/cofactor a 0 1)))
       (is (cm/eq-floats? 210 (sut/cofactor a 0 2)))
       (is (cm/eq-floats? 51 (sut/cofactor a 0 3)))
-      (is (cm/eq-floats? -4071 (sut/determinant a))))))
+      (is (cm/eq-floats? -4071 (sut/determinant a)))))
+
+  (testing "testing an invertible matrix for invertibility"
+    (let [a (sut/->mat4 6 4 4 4
+                        5 5 7 6
+                        4 -9 3 -7
+                        9 1 7 -6)]
+      (is (cm/eq-floats? -2120 (sut/determinant a)))
+      (is (sut/invertible? a))))
+
+  (testing "testing a non-invertible matrxi for invertibility"
+    (let [a (sut/->mat4 -4 2 -2 -3
+                        9 6 2 6
+                        0 -5 1 -5
+                        0 0 0 0)]
+      (is (cm/eq-floats? 0 (sut/determinant a)))
+      (is (not (sut/invertible? a))))))

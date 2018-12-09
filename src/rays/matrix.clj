@@ -69,3 +69,6 @@
     (if (odd? (+ r c))
       (- minor)
       minor)))
+
+(defn invertible? [m]
+  (not (cm/eq-floats? 0 (determinant m))))
