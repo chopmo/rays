@@ -52,5 +52,5 @@
 
 
 (defn submatrix [m r c]
-  (let [new-rows (vec (concat (subvec m 0 r) (subvec m (inc r))))]
-    (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))) new-rows)))
+  (->> (vec (concat (subvec m 0 r) (subvec m (inc r))))
+       (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))))))
