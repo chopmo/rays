@@ -21,9 +21,11 @@
   (get-in m [r c]))
 
 (defn eq [m1 m2]
-  (every? (fn [[r1 r2]]
-            (every? (partial apply cm/eq-floats?) (map vector r1 r2)))
-          (map vector m1 m2)))
+  (and (= (count m1) (count m2))
+       (= (count (first m1)) (count (first m2)))
+       (every? (fn [[r1 r2]]
+                 (every? (partial apply cm/eq-floats?) (map vector r1 r2)))
+               (map vector m1 m2))))
 
 (defn mul4 [a b]
   (apply ->mat4
@@ -47,3 +49,8 @@
 (defn determinant [m]
   (- (* (at m 0 0) (at m 1 1))
      (* (at m 0 1) (at m 1 0))))
+
+
+(defn submatrix [m r c]
+  (let [new-rows (vec (concat (subvec m 0 r) (subvec m (inc r))))]
+    (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))) new-rows)))

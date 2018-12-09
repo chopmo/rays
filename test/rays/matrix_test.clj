@@ -115,4 +115,12 @@
   (testing "calculating the determinant of a 2x2 matrix"
     (let [a (sut/->mat2 1 5 -3 2)]
       (is (cm/eq-floats? 17
-                         (sut/determinant a))))))
+                         (sut/determinant a)))))
+
+  (testing "a submatrix of a 3x3 matrix is a 2x2 matrix"
+    (let [a (sut/->mat3 1 5 0
+                        -3 2 7
+                        0 6 -3)]
+      (is (sut/eq (sut/->mat2 -3 2
+                              0 6)
+                  (sut/submatrix a 0 2))))))
