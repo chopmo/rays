@@ -46,6 +46,14 @@
 (defn transpose [m]
   (apply map vector m))
 
+(declare minor)
+
+(defn cofactor [m r c]
+  (let [minor (minor m r c)]
+    (if (odd? (+ r c))
+      (- minor)
+      minor)))
+
 (defn determinant [m]
   (let [size (count m)]
     (if (> size 2)
@@ -55,7 +63,6 @@
       (- (* (at m 0 0) (at m 1 1))
          (* (at m 0 1) (at m 1 0))))))
 
-
 (defn submatrix [m r c]
   (->> (vec (concat (subvec m 0 r) (subvec m (inc r))))
        (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))))
@@ -63,12 +70,6 @@
 
 (defn minor [m r c]
   (determinant (submatrix m r c)))
-
-(defn cofactor [m r c]
-  (let [minor (minor m r c)]
-    (if (odd? (+ r c))
-      (- minor)
-      minor)))
 
 (defn invertible? [m]
   (not (cm/eq-floats? 0 (determinant m))))
