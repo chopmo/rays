@@ -38,10 +38,10 @@
 (defn mul-tuple [a t]
   (apply t/->tuple
          (for [r (range 4)]
-           (+ (* (at a r 0) (:x t))
-              (* (at a r 1) (:y t))
-              (* (at a r 2) (:z t))
-              (* (at a r 3) (:w t))))))
+           (+ (* (at a r 0) (t/x t))
+              (* (at a r 1) (t/y t))
+              (* (at a r 2) (t/z t))
+              (* (at a r 3) (t/w t))))))
 
 (defn transpose [m]
   (vec (apply map vector m)))

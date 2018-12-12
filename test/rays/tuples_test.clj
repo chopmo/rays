@@ -16,7 +16,7 @@
       (is (sut/vect? a))))
 
   (testing "->tuple creates a tuple"
-    (is (= {:x 1 :y 2 :z 3 :w 0}
+    (is (= [1 2 3 0]
            (sut/->tuple 1 2 3 0))))
 
   (testing "->point creates tuples with w=1"
