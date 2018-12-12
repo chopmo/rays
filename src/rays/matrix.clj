@@ -44,7 +44,7 @@
               (* (at a r 3) (:w t))))))
 
 (defn transpose [m]
-  (apply map vector m))
+  (vec (apply map vector m)))
 
 (declare minor)
 
