@@ -73,3 +73,17 @@
 
 (defn invertible? [m]
   (not (cm/eq-floats? 0 (determinant m))))
+
+(defn inverse [m]
+  (let [matrix-of-cofactors
+        (apply ->mat4
+               (for [r (range 4)
+                     c (range 4)]
+                 (cofactor m r c)))
+
+        transposed (transpose matrix-of-cofactors)
+        d          (determinant m)]
+    (apply ->mat4
+           (for [r (range 4)
+                 c (range 4)]
+             (/ (at transposed r c) d)))))

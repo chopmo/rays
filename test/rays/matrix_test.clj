@@ -186,4 +186,23 @@
                         0 -5 1 -5
                         0 0 0 0)]
       (is (cm/eq-floats? 0 (sut/determinant a)))
-      (is (not (sut/invertible? a))))))
+      (is (not (sut/invertible? a)))))
+
+  (testing "calculating the inverse of a matrix"
+    (let [a (sut/->mat4 -5 2 6 -8
+                        1 -5 1 8
+                        7 7 -6 -7
+                        1 -3 7 4)
+          b (sut/inverse a)]
+      (is (cm/eq-floats? 532 (sut/determinant a)))
+      (is (cm/eq-floats? -160 (sut/cofactor a 2 3)))
+      (is (cm/eq-floats? (float (/ -160 532))
+                         (sut/at b 3 2)))
+      (is (cm/eq-floats? 105 (sut/cofactor a 3 2)))
+      (is (cm/eq-floats? (float (/ 105 532))
+                         (sut/at b 2 3)))
+      (is (sut/eq (sut/->mat4 0.21805 0.45113 0.24060 -0.04511
+                              -0.80827 -1.45677 -0.44361 0.52068
+                              -0.07895 -0.22368 -0.05263 0.19737
+                              -0.52256 -0.81391 -0.30075 0.30639)
+                  b)))))
