@@ -3,13 +3,13 @@
             [rays.tuples :as t]))
 
 (defn ->mat2 [& xs]
-  (vec (map vec (partition 2 xs))))
+  (vec xs))
 
 (defn ->mat3 [& xs]
-  (vec (map vec (partition 3 xs))))
+  (vec xs))
 
 (defn ->mat4 [& xs]
-  (vec (map vec (partition 4 xs))))
+  (vec xs))
 
 (def ident
   (->mat4 1 0 0 0
@@ -17,14 +17,19 @@
           0 0 1 0
           0 0 0 1))
 
+(defn- dim [m]
+  (case (count m)
+    16 4
+    9  3
+    4  2))
+
 (defn at [m r c]
-  (get-in m [r c]))
+  (nth m (+ (* (dim m) r) c)))
 
 (defn eq [m1 m2]
   (and (= (count m1) (count m2))
-       (= (count (first m1)) (count (first m2)))
-       (every? (fn [[r1 r2]]
-                 (every? (partial apply cm/eq-floats?) (map vector r1 r2)))
+       (every? (fn [[x1 x2]]
+                 (cm/eq-floats? x1 x2))
                (map vector m1 m2))))
 
 (defn mul4 [a b]
@@ -44,7 +49,8 @@
               (* (at a r 3) (t/w t))))))
 
 (defn transpose [m]
-  (vec (apply map vector m)))
+  (let [rows (partition (dim m) m)]
+    (vec (flatten (apply map vector rows)))))
 
 (declare minor)
 
@@ -55,18 +61,22 @@
       minor)))
 
 (defn determinant [m]
-  (let [size (count m)]
+  (let [size (dim m)]
     (if (> size 2)
-      (let [r         (first m)
+      (let [r0        (take size m)
             cofactors (map (fn [i] (cofactor m 0 i)) (range size))]
-        (reduce + (map * r cofactors)))
+        (reduce + (map * r0 cofactors)))
       (- (* (at m 0 0) (at m 1 1))
          (* (at m 0 1) (at m 1 0))))))
 
 (defn submatrix [m r c]
-  (->> (vec (concat (subvec m 0 r) (subvec m (inc r))))
-       (map (fn [r] (vec (concat (subvec r 0 c) (subvec r (inc c))))))
-       vec))
+  (let [d (dim m)
+        rows (filter #(not (= r %)) (range d))
+        cols (filter #(not (= c %)) (range d))]
+    (vec
+     (for [row rows
+           col cols]
+       (at m row col)))))
 
 (defn minor [m r c]
   (determinant (submatrix m r c)))
