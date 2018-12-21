@@ -205,4 +205,23 @@
                               -0.80827 -1.45677 -0.44361 0.52068
                               -0.07895 -0.22368 -0.05263 0.19737
                               -0.52256 -0.81391 -0.30075 0.30639)
-                  b)))))
+                  b))))
+
+  (testing "multiplying by a translation matrix"
+    (let [transform (sut/translation 5 -3 2)
+          p         (t/->point -3 4 5)]
+      (is (t/equal? (t/->point 2 1 7)
+                    (sut/mul-tuple transform p)))))
+
+  (testing "multiplying by the inverse of a translation matrix"
+    (let [transform (sut/translation 5 -3 2)
+          inv       (sut/inverse transform)
+          p         (t/->point -3 4 5)]
+      (is (t/equal? (t/->point -8 7 3)
+                    (sut/mul-tuple inv p)))))
+
+  (testing "translation does not affect vectors"
+    (let [transform (sut/translation 5 -3 2)
+          v         (t/->vect -3 4 5)]
+      (is (t/equal? v
+                    (sut/mul-tuple transform v))))))

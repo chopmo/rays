@@ -23,8 +23,14 @@
     9  3
     4  2))
 
+(defn- idx [m r c]
+  (+ (* (dim m) r) c))
+
 (defn at [m r c]
-  (nth m (+ (* (dim m) r) c)))
+  (nth m (idx m r c)))
+
+(defn set-val [m r c val]
+  (assoc m (idx m r c) val))
 
 (defn eq [m1 m2]
   (and (= (count m1) (count m2))
@@ -97,3 +103,9 @@
            (for [r (range 4)
                  c (range 4)]
              (/ (at transposed r c) d)))))
+
+(defn translation [x y z]
+  (-> ident
+      (set-val 0 3 x)
+      (set-val 1 3 y)
+      (set-val 2 3 z)))
