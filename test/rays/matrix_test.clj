@@ -224,4 +224,23 @@
     (let [transform (sut/translation 5 -3 2)
           v         (t/->vect -3 4 5)]
       (is (t/equal? v
-                    (sut/mul-tuple transform v))))))
+                    (sut/mul-tuple transform v)))))
+
+  (testing "a scaling matrix applied to a point"
+    (let [transform (sut/scaling 2 3 4)
+          p (t/->point -4 6 8)]
+      (is (t/equal? (t/->point -8 18 32)
+                    (sut/mul-tuple transform p)))))
+
+  (testing "a scaling matrix applied to a vector"
+    (let [transform (sut/scaling 2 3 4)
+          v (t/->vect -4 6 8)]
+      (is (t/equal? (t/->vect -8 18 32)
+                    (sut/mul-tuple transform v)))))
+
+  (testing "multiplying by the inverse of a scaling matrix"
+    (let [transform (sut/scaling 2 3 4)
+          inv (sut/inverse transform)
+          v (t/->vect -4 6 8)]
+      (is (t/equal? (t/->vect -2 2 2)
+                    (sut/mul-tuple inv v))))))

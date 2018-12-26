@@ -109,3 +109,9 @@
       (set-val 0 3 x)
       (set-val 1 3 y)
       (set-val 2 3 z)))
+
+(defn scaling [x y z]
+  (-> ident
+      (set-val 0 0 x)
+      (set-val 1 1 y)
+      (set-val 2 2 z)))
