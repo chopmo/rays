@@ -180,7 +180,7 @@
       (is (cm/eq-floats? -2120 (sut/determinant a)))
       (is (sut/invertible? a))))
 
-  (testing "testing a non-invertible matrxi for invertibility"
+  (testing "testing a non-invertible matrix for invertibility"
     (let [a (sut/->mat4 -4 2 -2 -3
                         9 6 2 6
                         0 -5 1 -5
