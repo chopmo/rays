@@ -243,4 +243,10 @@
           inv (sut/inverse transform)
           v (t/->vect -4 6 8)]
       (is (t/equal? (t/->vect -2 2 2)
-                    (sut/mul-tuple inv v))))))
+                    (sut/mul-tuple inv v)))))
+
+  (testing "reflection is scaling by a negative value"
+    (let [transform (sut/scaling -1 1 1)
+          p (t/->point 2 3 4)]
+      (is (t/equal? (t/->point -2 3 4)
+                    (sut/mul-tuple transform p))))))
