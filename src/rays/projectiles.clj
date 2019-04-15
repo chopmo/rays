@@ -49,12 +49,12 @@
                                  (t/multiply 8)))
 
                canvas (c/->canvas width height)]
-          (if (neg? (-> p :position :y))
+          (if (neg? (-> p :position t/y))
             canvas
             (recur (tick env p)
                    (c/write-pixel canvas
-                                  (-> p :position :x int)
-                                  (- height (-> p :position :y int))
+                                  (-> p :position t/x int)
+                                  (- height (-> p :position t/y int))
                                   (col/->color 1 1 1)))))
          ppm/canvas-to-ppm
          (spit "foo.ppm")
