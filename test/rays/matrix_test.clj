@@ -295,4 +295,28 @@
       (is (t/equal? (t/->point -1 0 0)
                     (sut/mul-tuple full-quarter p)))))
 
-  )
+  (testing "shearing"
+    (let [p (t/->point 2 3 4)]
+      (testing "x in proportion to y"
+        (is (t/equal? (t/->point 5 3 4)
+                      (sut/mul-tuple (sut/shearing 1 0 0 0 0 0) p))))
+
+      (testing "x in proportion to z"
+        (is (t/equal? (t/->point 6 3 4)
+                      (sut/mul-tuple (sut/shearing 0 1 0 0 0 0) p))))
+
+      (testing "y in proportion to x"
+        (is (t/equal? (t/->point 2 5 4)
+                      (sut/mul-tuple (sut/shearing 0 0 1 0 0 0) p))))
+
+      (testing "y in proportion to z"
+        (is (t/equal? (t/->point 2 7 4)
+                      (sut/mul-tuple (sut/shearing 0 0 0 1 0 0) p))))
+
+      (testing "z in proportion to x"
+        (is (t/equal? (t/->point 2 3 6)
+                      (sut/mul-tuple (sut/shearing 0 0 0 0 1 0) p))))
+
+      (testing "z in proportion to y"
+        (is (t/equal? (t/->point 2 3 7)
+                      (sut/mul-tuple (sut/shearing 0 0 0 0 0 1) p)))))))

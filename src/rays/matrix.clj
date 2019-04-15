@@ -133,3 +133,9 @@
           (Math/sin r) (Math/cos r) 0 0
           0 0 1 0
           0 0 0 1))
+
+(defn shearing [xy xz yx yz zx zy]
+  (->mat4 1  xy xz 0
+          yx 1  yz 0
+          zx zy 1  0
+          0  0  0  1))
