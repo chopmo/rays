@@ -319,4 +319,26 @@
 
       (testing "z in proportion to y"
         (is (t/equal? (t/->point 2 3 7)
-                      (sut/mul-tuple (sut/shearing 0 0 0 0 0 1) p)))))))
+                      (sut/mul-tuple (sut/shearing 0 0 0 0 0 1) p))))))
+
+  (testing "individual transformations are applied in sequence"
+    (let [p (t/->point 1 0 1)
+          a (sut/rotation-x (/ Math/PI 2))
+          b (sut/scaling 5 5 5)
+          c (sut/translation 10 5 7)
+          p2 (sut/mul-tuple a p)
+          p3 (sut/mul-tuple b p2)
+          p4 (sut/mul-tuple c p3)]
+      (is (t/equal? (t/->point 1 -1 0) p2))
+      (is (t/equal? (t/->point 5 -5 0) p3))
+      (is (t/equal? (t/->point 15 0 7) p4))))
+  (testing "chained transformation must be applied in reverse order"
+    (let [p (t/->point 1 0 1)
+          a (sut/rotation-x (/ Math/PI 2))
+          b (sut/scaling 5 5 5)
+          c (sut/translation 10 5 7)
+          t (-> c
+                (sut/mul4 b)
+                (sut/mul4 a))]
+      (is (t/equal? (t/->point 15 0 7)
+                    (sut/mul-tuple t p))))))
