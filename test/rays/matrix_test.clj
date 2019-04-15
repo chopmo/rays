@@ -9,6 +9,8 @@
     (is (cm/eq-floats? expected (sut/at m r c))
         (str case))))
 
+(def sqr2-halves (/ (Math/sqrt 2) 2))
+
 (deftest test-matrix
   (testing "constructing and inspecting a 4x4 matrix"
     (let [m     (sut/->mat4 1    2    3    4
@@ -249,4 +251,48 @@
     (let [transform (sut/scaling -1 1 1)
           p (t/->point 2 3 4)]
       (is (t/equal? (t/->point -2 3 4)
-                    (sut/mul-tuple transform p))))))
+                    (sut/mul-tuple transform p)))))
+
+  (testing "rotating a point around the x axis"
+    (let [p (t/->point 0 1 0)
+          half-quarter (sut/rotation-x (/ Math/PI 4))
+          full-quarter (sut/rotation-x (/ Math/PI 2))]
+      (is (t/equal? (t/->point 0
+                               sqr2-halves
+                               sqr2-halves)
+                    (sut/mul-tuple half-quarter p)))
+      (is (t/equal? (t/->point 0 0 1)
+                    (sut/mul-tuple full-quarter p)))))
+
+  (testing "the inverse of an x-rotation rotates in the opposite direction"
+    (let [p (t/->point 0 1 0)
+          half-quarter (sut/rotation-x (/ Math/PI 4))
+          inv (sut/inverse half-quarter)]
+      (is (t/equal? (t/->point 0
+                               sqr2-halves
+                               (- sqr2-halves))
+                    (sut/mul-tuple inv p)))))
+
+  (testing "rotating a point around the y axis"
+    (let [p (t/->point 0 0 1)
+          half-quarter (sut/rotation-y (/ Math/PI 4))
+          full-quarter (sut/rotation-y (/ Math/PI 2))]
+      (is (t/equal? (t/->point sqr2-halves
+                               0
+                               sqr2-halves)
+                    (sut/mul-tuple half-quarter p)))
+      (is (t/equal? (t/->point 1 0 0)
+                    (sut/mul-tuple full-quarter p)))))
+
+  (testing "rotating a point around the z axis"
+    (let [p (t/->point 0 1 0)
+          half-quarter (sut/rotation-z (/ Math/PI 4))
+          full-quarter (sut/rotation-z (/ Math/PI 2))]
+      (is (t/equal? (t/->point (- sqr2-halves)
+                               sqr2-halves
+                               0)
+                    (sut/mul-tuple half-quarter p)))
+      (is (t/equal? (t/->point -1 0 0)
+                    (sut/mul-tuple full-quarter p)))))
+
+  )

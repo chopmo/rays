@@ -115,3 +115,21 @@
       (set-val 0 0 x)
       (set-val 1 1 y)
       (set-val 2 2 z)))
+
+(defn rotation-x [r]
+  (->mat4 1 0 0 0
+          0 (Math/cos r) (- (Math/sin r)) 0
+          0 (Math/sin r) (Math/cos r) 0
+          0 0 0 1))
+
+(defn rotation-y [r]
+  (->mat4 (Math/cos r) 0 (Math/sin r) 0
+          0 1 0 0
+          (- (Math/sin r)) 0 (Math/cos r) 0
+          0 0 0 1))
+
+(defn rotation-z [r]
+  (->mat4 (Math/cos r) (- (Math/sin r)) 0 0
+          (Math/sin r) (Math/cos r) 0 0
+          0 0 1 0
+          0 0 0 1))
