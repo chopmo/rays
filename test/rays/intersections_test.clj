@@ -29,4 +29,38 @@
           xs (s/intersect s r)]
       (is (= 2 (count xs)))
       (is (= s (sut/object (first xs))))
-      (is (= s (sut/object (second xs)))))))
+      (is (= s (sut/object (second xs))))))
+
+  (testing "the hit, when all intersections have positive t"
+    (let [s (s/sphere)
+          i1 (sut/intersection 1 s)
+          i2 (sut/intersection 2 s)
+          xs (sut/intersections i2 i1)
+          i (sut/hit xs)]
+      (is (= i i1))))
+
+  (testing "the hit, when some intersections have negative t"
+    (let [s (s/sphere)
+          i1 (sut/intersection -1 s)
+          i2 (sut/intersection 1 s)
+          xs (sut/intersections i2 i1)
+          i (sut/hit xs)]
+      (is (= i i2))))
+
+  (testing "the hit, when all intersections have negative t"
+    (let [s (s/sphere)
+          i1 (sut/intersection -2 s)
+          i2 (sut/intersection -1 s)
+          xs (sut/intersections i2 i1)
+          i (sut/hit xs)]
+      (is (nil? i))))
+
+  (testing "the hit is always the lowest nonnegative intersection"
+    (let [s (s/sphere)
+          i1 (sut/intersection 5 s)
+          i2 (sut/intersection 7 s)
+          i3 (sut/intersection -3 s)
+          i4 (sut/intersection 2 s)
+          xs (sut/intersections i1 i2 i3 i4)
+          i (sut/hit xs)]
+      (is (= i4 i)))))

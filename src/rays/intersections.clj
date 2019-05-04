@@ -13,3 +13,9 @@
 
 (defn object [i]
   (:object i))
+
+(defn hit [xs]
+  (->> xs
+       (sort-by :t)
+       (filter #(pos? (:t %)))
+       first))
