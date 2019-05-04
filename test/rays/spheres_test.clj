@@ -3,7 +3,8 @@
             [rays.rays :as r]
             [clojure.test :refer :all]
             [rays.tuples :as t]
-            [rays.common :as c]))
+            [rays.common :as c]
+            [rays.intersections :as i]))
 
 
 (deftest spheres-test
@@ -13,8 +14,8 @@
           s  (sut/sphere)
           xs (sut/intersect s r)]
       (is (= 2 (count xs)))
-      (is (c/eq-floats? 4.0 (first xs)))
-      (is (c/eq-floats? 6.0 (second xs)))))
+      (is (c/eq-floats? 4.0 (i/t (first xs))))
+      (is (c/eq-floats? 6.0 (i/t (second xs))))))
 
   (testing "a ray intersects a sphere at a tangent"
     (let [r  (r/ray (t/->point 0 1 -5)
@@ -22,8 +23,8 @@
           s  (sut/sphere)
           xs (sut/intersect s r)]
       (is (= 2 (count xs)))
-      (is (c/eq-floats? 5.0 (first xs)))
-      (is (c/eq-floats? 5.0 (second xs)))))
+      (is (c/eq-floats? 5.0 (i/t (first xs))))
+      (is (c/eq-floats? 5.0 (i/t (second xs))))))
 
   (testing "a ray misses a sphere"
     (let [r  (r/ray (t/->point 0 2 -5)
@@ -38,8 +39,8 @@
           s  (sut/sphere)
           xs (sut/intersect s r)]
       (is (= 2 (count xs)))
-      (is (c/eq-floats? -1 (first xs)))
-      (is (c/eq-floats? 1 (second xs)))))
+      (is (c/eq-floats? -1 (i/t (first xs))))
+      (is (c/eq-floats? 1 (i/t (second xs))))))
 
   (testing "a sphere is behind a ray"
     (let [r  (r/ray (t/->point 0 0 5)
@@ -47,5 +48,5 @@
           s  (sut/sphere)
           xs (sut/intersect s r)]
       (is (= 2 (count xs)))
-      (is (c/eq-floats? -6 (first xs)))
-      (is (c/eq-floats? -4 (second xs))))))
+      (is (c/eq-floats? -6 (i/t (first xs))))
+      (is (c/eq-floats? -4 (i/t (second xs)))))))

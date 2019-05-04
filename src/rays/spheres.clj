@@ -15,5 +15,7 @@
                          (* 4 a c))]
     (if (< disc 0)
       []
-      [(/ (- (- b) (Math/sqrt disc)) (* 2 a))
-       (/ (+ (- b) (Math/sqrt disc)) (* 2 a))])))
+      [{:t (/ (- (- b) (Math/sqrt disc)) (* 2 a))
+        :object sphere}
+       {:t (/ (+ (- b) (Math/sqrt disc)) (* 2 a))
+        :object sphere}])))
