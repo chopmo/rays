@@ -5,6 +5,8 @@
             [rays.ppm :as ppm]
             [rays.tuples :as t]))
 
+;; Chapter 4 exercise
+
 (comment
   (let [width 400
         height 400
