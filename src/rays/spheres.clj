@@ -1,9 +1,16 @@
 (ns rays.spheres
   (:require [rays.tuples :as t]
-            [rays.rays :as r]))
+            [rays.rays :as r]
+            [rays.matrix :as m]))
 
 (defn sphere []
-  (name (gensym)))
+  {:transform m/ident})
+
+(defn transform [s]
+  (:transform s))
+
+(defn set-transform [s t]
+  (assoc s :transform t))
 
 (defn intersect [sphere ray]
   (let [sphere-to-ray (t/subtract (r/origin ray) (t/->point 0 0 0))

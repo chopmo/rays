@@ -4,7 +4,8 @@
             [clojure.test :refer :all]
             [rays.tuples :as t]
             [rays.common :as c]
-            [rays.intersections :as i]))
+            [rays.intersections :as i]
+            [rays.matrix :as m]))
 
 
 (deftest spheres-test
@@ -49,4 +50,15 @@
           xs (sut/intersect s r)]
       (is (= 2 (count xs)))
       (is (c/eq-floats? -6 (i/t (first xs))))
-      (is (c/eq-floats? -4 (i/t (second xs)))))))
+      (is (c/eq-floats? -4 (i/t (second xs))))))
+
+  (testing "a sphere's default transformation"
+    (let [s (sut/sphere)]
+      (is (m/eq (sut/transform s) m/ident))))
+
+  (testing "changing a sphere's transformation"
+    (let [s (sut/sphere)
+          t (m/translation 2 3 4)
+          s (sut/set-transform s t)]
+      (is (= t
+             (sut/transform s))))))
