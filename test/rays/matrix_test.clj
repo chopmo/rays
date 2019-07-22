@@ -332,6 +332,7 @@
       (is (t/equal? (t/->point 1 -1 0) p2))
       (is (t/equal? (t/->point 5 -5 0) p3))
       (is (t/equal? (t/->point 15 0 7) p4))))
+
   (testing "chained transformation must be applied in reverse order"
     (let [p (t/->point 1 0 1)
           a (sut/rotation-x (/ Math/PI 2))
