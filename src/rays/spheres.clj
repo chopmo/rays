@@ -6,14 +6,17 @@
 (defn sphere []
   {:transform m/ident})
 
-(defn transform [s]
+(defn get-transform [s]
   (:transform s))
 
 (defn set-transform [s t]
   (assoc s :transform t))
 
 (defn intersect [sphere ray]
-  (let [sphere-to-ray (t/subtract (r/origin ray) (t/->point 0 0 0))
+  (let [;; Transform the ray by the inverse of the sphere's
+        ;; transformation
+        ray           (r/transform ray (m/inverse (get-transform sphere)))
+        sphere-to-ray (t/subtract (r/origin ray) (t/->point 0 0 0))
         ray-dir       (r/direction ray)
         a             (t/dot ray-dir ray-dir)
         b             (* 2 (t/dot ray-dir sphere-to-ray))

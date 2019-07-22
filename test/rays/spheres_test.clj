@@ -54,11 +54,21 @@
 
   (testing "a sphere's default transformation"
     (let [s (sut/sphere)]
-      (is (m/eq (sut/transform s) m/ident))))
+      (is (m/eq (sut/get-transform s) m/ident))))
 
   (testing "changing a sphere's transformation"
     (let [s (sut/sphere)
           t (m/translation 2 3 4)
           s (sut/set-transform s t)]
       (is (= t
-             (sut/transform s))))))
+             (sut/get-transform s)))))
+
+  (testing "intersecting a scaled sphere with a ray"
+    (let [r (r/ray (t/->point 0 0 -5)
+                   (t/->vect 0 0 1))
+          s (sut/sphere)
+          s (sut/set-transform s (m/scaling 2 2 2))
+          xs (sut/intersect s r)]
+      (is (= 2 (count xs)))
+      (is (c/eq-floats? 3 (:t (first xs))))
+      (is (c/eq-floats? 7 (:t (second xs)))))))
