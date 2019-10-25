@@ -71,4 +71,12 @@
           xs (sut/intersect s r)]
       (is (= 2 (count xs)))
       (is (c/eq-floats? 3 (:t (first xs))))
-      (is (c/eq-floats? 7 (:t (second xs)))))))
+      (is (c/eq-floats? 7 (:t (second xs))))))
+
+  (testing "intersecting a translated sphere with a ray"
+    (let [r (r/ray (t/->point 0 0 -5)
+                   (t/->vect 0 0 1))
+          s (sut/sphere)
+          s (sut/set-transform s (m/translation 5 0 0))
+          xs (sut/intersect s r)]
+      (is (empty? xs)))))
