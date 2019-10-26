@@ -126,4 +126,20 @@
       (is (sut/equal? (sut/->vect -1 2 -1)
                       (sut/cross a b)))
       (is (sut/equal? (sut/->vect 1 -2 1)
-                      (sut/cross b a))))))
+                      (sut/cross b a)))))
+
+  ;; Reflection
+  (testing "reflecting a vector approaching at 45 degrees"
+    (let [v (sut/->vect 1 -1 0)
+          n (sut/->vect 0 1 0)
+          r (sut/reflect v n)]
+      (is (sut/equal? r (sut/->vect 1 1 0)))))
+
+  (testing "refleting a vector off a slanted surface"
+    (let [v (sut/->vect 0 -1 0)
+          n (sut/->vect (/ (Math/sqrt 2) 2)
+                        (/ (Math/sqrt 2) 2)
+                        0)
+          r (sut/reflect v n)]
+      (is (sut/equal? r (sut/->vect 1 0 0)))))
+  )
