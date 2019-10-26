@@ -29,3 +29,13 @@
         :object sphere}
        {:t (/ (+ (- b) (Math/sqrt disc)) (* 2 a))
         :object sphere}])))
+
+(defn normal-at [sphere world-point]
+  (let [object-point  (m/mul-tuple (m/inverse (get-transform sphere))
+                                   world-point)
+        object-normal (t/subtract object-point
+                                  (t/->point 0 0 0))
+        world-normal  (m/mul-tuple (m/transpose (m/inverse (get-transform sphere)))
+                                   object-normal)
+        world-normal  (t/set-w world-normal 0)]
+    (t/normalize world-normal)))

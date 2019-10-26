@@ -7,6 +7,9 @@
 (defn z [t] (nth t 2))
 (defn w [t] (nth t 3))
 
+(defn set-w [t new-w]
+  (assoc t 3 new-w))
+
 (defn ->tuple [x y z w]
   [x y z w])
 
