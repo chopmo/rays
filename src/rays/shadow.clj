@@ -4,9 +4,10 @@
             [rays.ppm :as ppm]
             [rays.rays :as r]
             [rays.spheres :as s]
-            [rays.tuples :as t]))
+            [rays.tuples :as t]
+            [rays.matrix :as m]))
 
-(let [canvas-size 100
+(let [canvas-size 150
       canvas      (c/->canvas canvas-size
                               canvas-size
                               (col/->color 0 0 0))
@@ -14,7 +15,10 @@
       wall-z      10
       wall-size   7.0
 
+      transform  (m/mul4 (m/rotation-z (/ Math/PI 6))
+                         (m/scaling 0.5 1 1))
       s          (s/sphere)
+      s          (s/set-transform s transform)
       step       2
 
       pixel->coord (fn [x]
